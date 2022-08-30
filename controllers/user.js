@@ -90,12 +90,14 @@ const usuariosDelete = async (req, res ) => {
     // const result = await Usuario.findById(id);
 
 
-    const [usuarios, resultado ] = await  Promise.all([
+    const [usuarios, resultado,user ] = await  Promise.all([
         Usuario.findByIdAndUpdate(id,{estado : false}),
-        Usuario.findById(id)
+        Usuario.findById(id),
+        req.user
     ])
     res.status(200).json({
-        "msg":`Delete ${id} Antes : ${usuarios.estado} Despues: ${resultado.estado}`
+        "msg":`Delete ${id} Antes : ${usuarios.estado} Despues: ${resultado.estado}`,
+        user
     });
 }
 
