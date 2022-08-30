@@ -9,6 +9,7 @@ router.get('/',user.usuariosGet );
 router.put('/:id', [
     check('id','No es un ID válido').isMongoId(),
     check('id').custom(existeId),
+    check('rol').custom(esRoleValido),
     validarCampos
     
 ],user.usuariosPut);
@@ -22,7 +23,13 @@ router.post('/', [
     validarCampos
 ]
 ,user.usuariosPost);
-router.delete('/', user.usuariosDelete);
+router.delete('/:id',[
+    check('id','No es un ID válido').isMongoId(),
+    check('id').custom(existeId),
+    validarCampos
+
+
+] ,user.usuariosDelete);
 
 
 module.exports = router;

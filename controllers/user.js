@@ -5,12 +5,26 @@ const Usuario = require('../models/usuario');
 
 
 
-const usuariosGet = (req, res ) => {
-    const query = req.query;
-    res.status(200).json({
-        "msg":"GET From Controller",
-        query
-    });
+const usuariosGet = async(req, res ) => {
+    const {limite = 5, desde = 0} = req.query;
+
+
+
+    // const usuarios = await Usuario.find({estado : true})
+    //     .skip(Number(desde))
+    //     .limit(Number(limite));
+
+    // const total = await Usuario.countDocuments({estado : true});
+    
+    const [total,usuarios] = await Promise.all([
+        Usuario.countDocuments({estado : true}),
+        Usuario.find({estado : true})
+        .skip(Number(desde))
+        .limit(Number(limite))
+    ])
+
+
+    res.json({ total, usuarios});
 }
 
 
@@ -66,9 +80,22 @@ const usuariosPut = async (req, res ) => {
     });
 }
 
-const usuariosDelete = (req, res ) => {
+const usuariosDelete = async (req, res ) => {
+    const {id} = req.params;
+    //Borrado fisico
+    //const usuario = await Usuario.findByIdAndDelete(id);
+
+    //Borrado lógico
+    // const usuario = await Usuario.findByIdAndUpdate(id,{estado : false});
+    // const result = await Usuario.findById(id);
+
+
+    const [usuarios, resultado ] = await  Promise.all([
+        Usuario.findByIdAndUpdate(id,{estado : false}),
+        Usuario.findById(id)
+    ])
     res.status(200).json({
-        "msg":" Delete From Controller"
+        "msg":`Delete ${id} Antes : ${usuarios.estado} Despues: ${resultado.estado}`
     });
 }
 
