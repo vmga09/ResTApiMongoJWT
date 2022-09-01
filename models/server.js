@@ -11,6 +11,8 @@ class Server {
         this.usuariosPath = '/api/usuarios';
         this.usuariosAdmin = '/api/admin';
         this.authPath ='/api/auth';
+        this.categorias = '/api/categorias';
+        this.productos = '/api/productos';
 
         //Conexion a la base de datos
         this.connectDB();
@@ -39,6 +41,8 @@ class Server {
         this.app.use(this.usuariosPath,require('../routes/user'));
         this.app.use(this.usuariosAdmin,require('../routes/admin'));
         this.app.use(this.authPath,require('../routes/auth'));
+        this.app.use(this.categorias,require('../routes/categorias'));
+        this.app.use(this.productos,require('../routes/productos'));
     }
     
     listen(){

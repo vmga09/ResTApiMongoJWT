@@ -1,4 +1,4 @@
-const Usuario = require('../models/usuario');
+const {Usuario} = require('../models');
 const bcryptjs = require('bcryptjs');
 const { getJWT } = require('../helpers/auth-jwt');
 const { googleVerify } = require('../helpers/google-verify');
