@@ -13,6 +13,7 @@ class Server {
         this.authPath ='/api/auth';
         this.categorias = '/api/categorias';
         this.productos = '/api/productos';
+        this.buscar = '/api/buscar';
 
         //Conexion a la base de datos
         this.connectDB();
@@ -43,6 +44,7 @@ class Server {
         this.app.use(this.authPath,require('../routes/auth'));
         this.app.use(this.categorias,require('../routes/categorias'));
         this.app.use(this.productos,require('../routes/productos'));
+        this.app.use(this.buscar,require('../routes/buscar'));
     }
     
     listen(){
