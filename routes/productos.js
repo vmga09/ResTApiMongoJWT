@@ -1,7 +1,7 @@
 const { Router} = require('express');
 const { check } = require('express-validator');
 const { crearProducto } = require('../controllers/productos');
-//const { existeCategoria } = require('../helpers/dbValidators');
+const { existeCategoriaByName } = require('../helpers/dbValidators');
 
 const {
     validarCampos,
@@ -16,6 +16,7 @@ const {
     validarJWT,
     check('nombre','El nombre es obligatorio').notEmpty(),
     check('categoria','La categoria es obligatorio').notEmpty(),
+    check('categoria').custom(existeCategoriaByName),
     validarCampos
     ],crearProducto);
 

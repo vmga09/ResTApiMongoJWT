@@ -17,14 +17,7 @@ const crearProducto = async (req, res) => {
         .json({ message: `El producto ${nombre} ya existe` });
     }
 
-    //Verificar si la categoria existe en la base de datos
-    const categoriaDB = await Categoria.findOne({ nombre:categoria });
-    if (!categoriaDB) {
-      return res
-        .status(404)
-        .json({ message: `La categoria ${categoria} no  existe` });
-    }
-    
+   
     if(!typeof precio === 'number'){
         return res
         .status(404)
@@ -34,7 +27,7 @@ const crearProducto = async (req, res) => {
     //Genera la data a guardar
     const data = {
       nombre,
-      categoria : categoriaDB.nombre,
+      categoria,
       usuario: req.uid,
       precio,
       descripcion

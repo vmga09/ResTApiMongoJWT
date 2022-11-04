@@ -29,9 +29,23 @@ const existeCategoria = async (id) => {
     }
 }
 
+
+const existeCategoriaByName = async(name) =>{
+      const  nombre = name.toUpperCase(); 
+    const categoriaDB = await Categoria.findOne({ nombre });
+    if (!categoriaDB) {
+        throw new Error(`El ${name} no esta registrado`);
+    }
+
+}
+
+
+
+
 module.exports = { 
     esRoleValido,
     existeEmail,
     existeId,
-    existeCategoria
+    existeCategoria,
+    existeCategoriaByName
 }
