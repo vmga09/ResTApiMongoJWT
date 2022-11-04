@@ -1,6 +1,7 @@
 const role = require('../models/role');
 const Usuario = require('../models/usuario');
 const Categoria = require('../models/categoria');
+const { collection } = require('../models/role');
 
 const esRoleValido = async (rol = '')=>{
     const existeRol = await role.findOne({rol});
@@ -39,6 +40,16 @@ const existeCategoriaByName = async(name) =>{
 
 }
 
+const colletionEnabled = ( collect = '', collections = []) => {
+
+    const include = collections.includes(collect);
+    if(!include){
+        throw new Error(`El ${collect} no esta pertimitido en , ${collections}`);
+    }
+    return true;
+
+}
+
 
 
 
@@ -47,5 +58,6 @@ module.exports = {
     existeEmail,
     existeId,
     existeCategoria,
-    existeCategoriaByName
+    existeCategoriaByName,
+    colletionEnabled
 }
